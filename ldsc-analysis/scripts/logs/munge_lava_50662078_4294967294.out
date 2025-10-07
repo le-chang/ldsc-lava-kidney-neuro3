@@ -1,0 +1,397 @@
+Processing PD_females - normal orientation...
+*********************************************************************
+* LD Score Regression (LDSC)
+* Version 1.0.1
+* (C) 2014-2019 Brendan Bulik-Sullivan and Hilary Finucane
+* Broad Institute of MIT and Harvard / MIT Department of Mathematics
+* GNU General Public License v3
+*********************************************************************
+Call: 
+./munge_sumstats.py \
+--signed-sumstats BETA,0 \
+--out /home/lchang24/scratch/ldsc_munged/PD_females_normal \
+--N 104082.0 \
+--a1 A1 \
+--a2 A2 \
+--snp SNP \
+--sumstats /home/lchang24/projects/def-gsarah/sumstats/kidney_neurodegen/PD_females.lava.gz \
+--ignore N \
+--p P 
+
+Interpreting column names as follows:
+A1:	Allele 1, interpreted as ref allele for signed sumstat.
+P:	p-Value
+BETA:	Directional summary statistic as specified by --signed-sumstats.
+A2:	Allele 2, interpreted as non-ref allele for signed sumstat.
+SNP:	Variant ID (e.g., rs number)
+
+Reading sumstats from /home/lchang24/projects/def-gsarah/sumstats/kidney_neurodegen/PD_females.lava.gz into memory 5000000 SNPs at a time.
+.. done
+Read 7141403 SNPs from --sumstats file.
+Removed 0 SNPs with missing values.
+Removed 0 SNPs with INFO <= 0.9.
+Removed 0 SNPs with MAF <= 0.01.
+Removed 0 SNPs with out-of-bounds p-values.
+Removed 1092479 variants that were not SNPs or were strand-ambiguous.
+6048924 SNPs remain.
+Removed 0 SNPs with duplicated rs numbers (6048924 SNPs remain).
+Using N = 104082.0
+Median value of SIGNED_SUMSTATS was 0.0, which seems sensible.
+Writing summary statistics for 6048924 SNPs (6048924 with nonmissing beta) to /home/lchang24/scratch/ldsc_munged/PD_females_normal.sumstats.gz.
+
+Metadata:
+Mean chi^2 = 1.088
+Lambda GC = 1.019
+Max chi^2 = 129.674
+2846 Genome-wide significant SNPs (some may have been removed by filtering).
+
+Conversion finished at Tue Oct  7 14:28:07 2025
+Total time elapsed: 2.0m:26.54s
+Processing PD_females - flipped orientation...
+*********************************************************************
+* LD Score Regression (LDSC)
+* Version 1.0.1
+* (C) 2014-2019 Brendan Bulik-Sullivan and Hilary Finucane
+* Broad Institute of MIT and Harvard / MIT Department of Mathematics
+* GNU General Public License v3
+*********************************************************************
+Call: 
+./munge_sumstats.py \
+--signed-sumstats BETA,0 \
+--out /home/lchang24/scratch/ldsc_munged/PD_females_flipped \
+--N 104082.0 \
+--a1 A2 \
+--a2 A1 \
+--snp SNP \
+--sumstats /home/lchang24/projects/def-gsarah/sumstats/kidney_neurodegen/PD_females.lava.gz \
+--ignore N \
+--p P 
+
+Interpreting column names as follows:
+A1:	Allele 2, interpreted as non-ref allele for signed sumstat.
+P:	p-Value
+BETA:	Directional summary statistic as specified by --signed-sumstats.
+A2:	Allele 1, interpreted as ref allele for signed sumstat.
+SNP:	Variant ID (e.g., rs number)
+
+Reading sumstats from /home/lchang24/projects/def-gsarah/sumstats/kidney_neurodegen/PD_females.lava.gz into memory 5000000 SNPs at a time.
+.. done
+Read 7141403 SNPs from --sumstats file.
+Removed 0 SNPs with missing values.
+Removed 0 SNPs with INFO <= 0.9.
+Removed 0 SNPs with MAF <= 0.01.
+Removed 0 SNPs with out-of-bounds p-values.
+Removed 1092479 variants that were not SNPs or were strand-ambiguous.
+6048924 SNPs remain.
+Removed 0 SNPs with duplicated rs numbers (6048924 SNPs remain).
+Using N = 104082.0
+Median value of SIGNED_SUMSTATS was 0.0, which seems sensible.
+Writing summary statistics for 6048924 SNPs (6048924 with nonmissing beta) to /home/lchang24/scratch/ldsc_munged/PD_females_flipped.sumstats.gz.
+
+Metadata:
+Mean chi^2 = 1.088
+Lambda GC = 1.019
+Max chi^2 = 129.674
+2846 Genome-wide significant SNPs (some may have been removed by filtering).
+
+Conversion finished at Tue Oct  7 14:30:30 2025
+Total time elapsed: 2.0m:21.97s
+Processing PD_males - normal orientation...
+*********************************************************************
+* LD Score Regression (LDSC)
+* Version 1.0.1
+* (C) 2014-2019 Brendan Bulik-Sullivan and Hilary Finucane
+* Broad Institute of MIT and Harvard / MIT Department of Mathematics
+* GNU General Public License v3
+*********************************************************************
+Call: 
+./munge_sumstats.py \
+--signed-sumstats BETA,0 \
+--out /home/lchang24/scratch/ldsc_munged/PD_males_normal \
+--N 110616.0 \
+--a1 A1 \
+--a2 A2 \
+--snp SNP \
+--sumstats /home/lchang24/projects/def-gsarah/sumstats/kidney_neurodegen/PD_males.lava.gz \
+--ignore N \
+--p P 
+
+Interpreting column names as follows:
+A1:	Allele 1, interpreted as ref allele for signed sumstat.
+P:	p-Value
+BETA:	Directional summary statistic as specified by --signed-sumstats.
+A2:	Allele 2, interpreted as non-ref allele for signed sumstat.
+SNP:	Variant ID (e.g., rs number)
+
+Reading sumstats from /home/lchang24/projects/def-gsarah/sumstats/kidney_neurodegen/PD_males.lava.gz into memory 5000000 SNPs at a time.
+.. done
+Read 7153506 SNPs from --sumstats file.
+Removed 0 SNPs with missing values.
+Removed 0 SNPs with INFO <= 0.9.
+Removed 0 SNPs with MAF <= 0.01.
+Removed 0 SNPs with out-of-bounds p-values.
+Removed 1093927 variants that were not SNPs or were strand-ambiguous.
+6059579 SNPs remain.
+Removed 0 SNPs with duplicated rs numbers (6059579 SNPs remain).
+Using N = 110616.0
+Median value of SIGNED_SUMSTATS was 0.0001, which seems sensible.
+Writing summary statistics for 6059579 SNPs (6059579 with nonmissing beta) to /home/lchang24/scratch/ldsc_munged/PD_males_normal.sumstats.gz.
+
+Metadata:
+Mean chi^2 = 1.115
+Lambda GC = 1.044
+Max chi^2 = 194.405
+2960 Genome-wide significant SNPs (some may have been removed by filtering).
+
+Conversion finished at Tue Oct  7 14:32:54 2025
+Total time elapsed: 2.0m:22.88s
+Processing PD_males - flipped orientation...
+*********************************************************************
+* LD Score Regression (LDSC)
+* Version 1.0.1
+* (C) 2014-2019 Brendan Bulik-Sullivan and Hilary Finucane
+* Broad Institute of MIT and Harvard / MIT Department of Mathematics
+* GNU General Public License v3
+*********************************************************************
+Call: 
+./munge_sumstats.py \
+--signed-sumstats BETA,0 \
+--out /home/lchang24/scratch/ldsc_munged/PD_males_flipped \
+--N 110616.0 \
+--a1 A2 \
+--a2 A1 \
+--snp SNP \
+--sumstats /home/lchang24/projects/def-gsarah/sumstats/kidney_neurodegen/PD_males.lava.gz \
+--ignore N \
+--p P 
+
+Interpreting column names as follows:
+A1:	Allele 2, interpreted as non-ref allele for signed sumstat.
+P:	p-Value
+BETA:	Directional summary statistic as specified by --signed-sumstats.
+A2:	Allele 1, interpreted as ref allele for signed sumstat.
+SNP:	Variant ID (e.g., rs number)
+
+Reading sumstats from /home/lchang24/projects/def-gsarah/sumstats/kidney_neurodegen/PD_males.lava.gz into memory 5000000 SNPs at a time.
+.. done
+Read 7153506 SNPs from --sumstats file.
+Removed 0 SNPs with missing values.
+Removed 0 SNPs with INFO <= 0.9.
+Removed 0 SNPs with MAF <= 0.01.
+Removed 0 SNPs with out-of-bounds p-values.
+Removed 1093927 variants that were not SNPs or were strand-ambiguous.
+6059579 SNPs remain.
+Removed 0 SNPs with duplicated rs numbers (6059579 SNPs remain).
+Using N = 110616.0
+Median value of SIGNED_SUMSTATS was 0.0001, which seems sensible.
+Writing summary statistics for 6059579 SNPs (6059579 with nonmissing beta) to /home/lchang24/scratch/ldsc_munged/PD_males_flipped.sumstats.gz.
+
+Metadata:
+Mean chi^2 = 1.115
+Lambda GC = 1.044
+Max chi^2 = 194.405
+2960 Genome-wide significant SNPs (some may have been removed by filtering).
+
+Conversion finished at Tue Oct  7 14:35:21 2025
+Total time elapsed: 2.0m:25.5s
+Processing PDnp_females - normal orientation...
+*********************************************************************
+* LD Score Regression (LDSC)
+* Version 1.0.1
+* (C) 2014-2019 Brendan Bulik-Sullivan and Hilary Finucane
+* Broad Institute of MIT and Harvard / MIT Department of Mathematics
+* GNU General Public License v3
+*********************************************************************
+Call: 
+./munge_sumstats.py \
+--signed-sumstats BETA,0 \
+--out /home/lchang24/scratch/ldsc_munged/PDnp_females_normal \
+--N 19773.0 \
+--a1 A1 \
+--a2 A2 \
+--snp SNP \
+--sumstats /home/lchang24/projects/def-gsarah/sumstats/kidney_neurodegen/PDnp_females.lava.gz \
+--ignore N \
+--p P 
+
+Interpreting column names as follows:
+A1:	Allele 1, interpreted as ref allele for signed sumstat.
+P:	p-Value
+BETA:	Directional summary statistic as specified by --signed-sumstats.
+A2:	Allele 2, interpreted as non-ref allele for signed sumstat.
+SNP:	Variant ID (e.g., rs number)
+
+Reading sumstats from /home/lchang24/projects/def-gsarah/sumstats/kidney_neurodegen/PDnp_females.lava.gz into memory 5000000 SNPs at a time.
+.. done
+Read 7309889 SNPs from --sumstats file.
+Removed 0 SNPs with missing values.
+Removed 0 SNPs with INFO <= 0.9.
+Removed 0 SNPs with MAF <= 0.01.
+Removed 0 SNPs with out-of-bounds p-values.
+Removed 1121564 variants that were not SNPs or were strand-ambiguous.
+6188325 SNPs remain.
+Removed 0 SNPs with duplicated rs numbers (6188325 SNPs remain).
+Using N = 19773.0
+Median value of SIGNED_SUMSTATS was -0.0002, which seems sensible.
+Writing summary statistics for 6188325 SNPs (6188325 with nonmissing beta) to /home/lchang24/scratch/ldsc_munged/PDnp_females_normal.sumstats.gz.
+
+Metadata:
+Mean chi^2 = 1.083
+Lambda GC = 1.04
+Max chi^2 = 116.89
+2673 Genome-wide significant SNPs (some may have been removed by filtering).
+
+Conversion finished at Tue Oct  7 14:37:50 2025
+Total time elapsed: 2.0m:27.94s
+Processing PDnp_females - flipped orientation...
+*********************************************************************
+* LD Score Regression (LDSC)
+* Version 1.0.1
+* (C) 2014-2019 Brendan Bulik-Sullivan and Hilary Finucane
+* Broad Institute of MIT and Harvard / MIT Department of Mathematics
+* GNU General Public License v3
+*********************************************************************
+Call: 
+./munge_sumstats.py \
+--signed-sumstats BETA,0 \
+--out /home/lchang24/scratch/ldsc_munged/PDnp_females_flipped \
+--N 19773.0 \
+--a1 A2 \
+--a2 A1 \
+--snp SNP \
+--sumstats /home/lchang24/projects/def-gsarah/sumstats/kidney_neurodegen/PDnp_females.lava.gz \
+--ignore N \
+--p P 
+
+Interpreting column names as follows:
+A1:	Allele 2, interpreted as non-ref allele for signed sumstat.
+P:	p-Value
+BETA:	Directional summary statistic as specified by --signed-sumstats.
+A2:	Allele 1, interpreted as ref allele for signed sumstat.
+SNP:	Variant ID (e.g., rs number)
+
+Reading sumstats from /home/lchang24/projects/def-gsarah/sumstats/kidney_neurodegen/PDnp_females.lava.gz into memory 5000000 SNPs at a time.
+.. done
+Read 7309889 SNPs from --sumstats file.
+Removed 0 SNPs with missing values.
+Removed 0 SNPs with INFO <= 0.9.
+Removed 0 SNPs with MAF <= 0.01.
+Removed 0 SNPs with out-of-bounds p-values.
+Removed 1121564 variants that were not SNPs or were strand-ambiguous.
+6188325 SNPs remain.
+Removed 0 SNPs with duplicated rs numbers (6188325 SNPs remain).
+Using N = 19773.0
+Median value of SIGNED_SUMSTATS was -0.0002, which seems sensible.
+Writing summary statistics for 6188325 SNPs (6188325 with nonmissing beta) to /home/lchang24/scratch/ldsc_munged/PDnp_females_flipped.sumstats.gz.
+
+Metadata:
+Mean chi^2 = 1.083
+Lambda GC = 1.04
+Max chi^2 = 116.89
+2673 Genome-wide significant SNPs (some may have been removed by filtering).
+
+Conversion finished at Tue Oct  7 14:40:21 2025
+Total time elapsed: 2.0m:29.22s
+Processing PDnp_males - normal orientation...
+*********************************************************************
+* LD Score Regression (LDSC)
+* Version 1.0.1
+* (C) 2014-2019 Brendan Bulik-Sullivan and Hilary Finucane
+* Broad Institute of MIT and Harvard / MIT Department of Mathematics
+* GNU General Public License v3
+*********************************************************************
+Call: 
+./munge_sumstats.py \
+--signed-sumstats BETA,0 \
+--out /home/lchang24/scratch/ldsc_munged/PDnp_males_normal \
+--N 24053.0 \
+--a1 A1 \
+--a2 A2 \
+--snp SNP \
+--sumstats /home/lchang24/projects/def-gsarah/sumstats/kidney_neurodegen/PDnp_males.lava.gz \
+--ignore N \
+--p P 
+
+Interpreting column names as follows:
+A1:	Allele 1, interpreted as ref allele for signed sumstat.
+P:	p-Value
+BETA:	Directional summary statistic as specified by --signed-sumstats.
+A2:	Allele 2, interpreted as non-ref allele for signed sumstat.
+SNP:	Variant ID (e.g., rs number)
+
+Reading sumstats from /home/lchang24/projects/def-gsarah/sumstats/kidney_neurodegen/PDnp_males.lava.gz into memory 5000000 SNPs at a time.
+.. done
+Read 7234141 SNPs from --sumstats file.
+Removed 0 SNPs with missing values.
+Removed 0 SNPs with INFO <= 0.9.
+Removed 0 SNPs with MAF <= 0.01.
+Removed 0 SNPs with out-of-bounds p-values.
+Removed 1109025 variants that were not SNPs or were strand-ambiguous.
+6125116 SNPs remain.
+Removed 0 SNPs with duplicated rs numbers (6125116 SNPs remain).
+Using N = 24053.0
+Median value of SIGNED_SUMSTATS was 0.0002, which seems sensible.
+Writing summary statistics for 6125116 SNPs (6125116 with nonmissing beta) to /home/lchang24/scratch/ldsc_munged/PDnp_males_normal.sumstats.gz.
+
+Metadata:
+Mean chi^2 = 1.129
+Lambda GC = 1.071
+Max chi^2 = 158.013
+2681 Genome-wide significant SNPs (some may have been removed by filtering).
+
+Conversion finished at Tue Oct  7 14:42:48 2025
+Total time elapsed: 2.0m:25.82s
+Processing PDnp_males - flipped orientation...
+*********************************************************************
+* LD Score Regression (LDSC)
+* Version 1.0.1
+* (C) 2014-2019 Brendan Bulik-Sullivan and Hilary Finucane
+* Broad Institute of MIT and Harvard / MIT Department of Mathematics
+* GNU General Public License v3
+*********************************************************************
+Call: 
+./munge_sumstats.py \
+--signed-sumstats BETA,0 \
+--out /home/lchang24/scratch/ldsc_munged/PDnp_males_flipped \
+--N 24053.0 \
+--a1 A2 \
+--a2 A1 \
+--snp SNP \
+--sumstats /home/lchang24/projects/def-gsarah/sumstats/kidney_neurodegen/PDnp_males.lava.gz \
+--ignore N \
+--p P 
+
+Interpreting column names as follows:
+A1:	Allele 2, interpreted as non-ref allele for signed sumstat.
+P:	p-Value
+BETA:	Directional summary statistic as specified by --signed-sumstats.
+A2:	Allele 1, interpreted as ref allele for signed sumstat.
+SNP:	Variant ID (e.g., rs number)
+
+Reading sumstats from /home/lchang24/projects/def-gsarah/sumstats/kidney_neurodegen/PDnp_males.lava.gz into memory 5000000 SNPs at a time.
+.. done
+Read 7234141 SNPs from --sumstats file.
+Removed 0 SNPs with missing values.
+Removed 0 SNPs with INFO <= 0.9.
+Removed 0 SNPs with MAF <= 0.01.
+Removed 0 SNPs with out-of-bounds p-values.
+Removed 1109025 variants that were not SNPs or were strand-ambiguous.
+6125116 SNPs remain.
+Removed 0 SNPs with duplicated rs numbers (6125116 SNPs remain).
+Using N = 24053.0
+Median value of SIGNED_SUMSTATS was 0.0002, which seems sensible.
+Writing summary statistics for 6125116 SNPs (6125116 with nonmissing beta) to /home/lchang24/scratch/ldsc_munged/PDnp_males_flipped.sumstats.gz.
+
+Metadata:
+Mean chi^2 = 1.129
+Lambda GC = 1.071
+Max chi^2 = 158.013
+2681 Genome-wide significant SNPs (some may have been removed by filtering).
+
+Conversion finished at Tue Oct  7 14:45:15 2025
+Total time elapsed: 2.0m:26.14s
+
+==========================================
+All .lava.gz files processed successfully!
+End Time: Tue 07 Oct 2025 02:45:16 PM EDT
+==========================================

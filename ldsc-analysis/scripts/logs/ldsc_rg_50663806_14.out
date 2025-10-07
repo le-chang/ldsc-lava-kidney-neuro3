@@ -1,0 +1,52 @@
+==========================================
+Array Job ID: 50663806
+Task ID: 14
+Trait 1: uacr_male_normal
+Trait 2: PD_sexcombined_meta_flipped
+Start Time: Tue 07 Oct 2025 03:18:31 PM EDT
+==========================================
+
+*********************************************************************
+* LD Score Regression (LDSC)
+* Version 1.0.1
+* (C) 2014-2019 Brendan Bulik-Sullivan and Hilary Finucane
+* Broad Institute of MIT and Harvard / MIT Department of Mathematics
+* GNU General Public License v3
+*********************************************************************
+Call: 
+./ldsc.py \
+--ref-ld-chr /home/lchang24/projects/def-gsarah/lchang24/github/nf-genetic-correlations_fork/nf-genetic-correlations/data/ld_reference/eur_w_ld_chr \
+--out /home/lchang24/scratch/ldsc_results/uacr_male_normal_vs_PD_sexcombined_meta_flipped \
+--rg /home/lchang24/scratch/ldsc_munged/uacr_male_normal.sumstats.gz,/home/lchang24/scratch/ldsc_munged/PD_sexcombined_meta_flipped.sumstats.gz \
+--w-ld-chr /home/lchang24/projects/def-gsarah/lchang24/github/nf-genetic-correlations_fork/nf-genetic-correlations/data/ld_reference/eur_w_ld_chr 
+
+Beginning analysis at Tue Oct  7 15:18:35 2025
+Reading summary statistics from /home/lchang24/scratch/ldsc_munged/uacr_male_normal.sumstats.gz ...
+Read summary statistics for 7293029 SNPs.
+Reading reference panel LD Score from /home/lchang24/projects/def-gsarah/lchang24/github/nf-genetic-correlations_fork/nf-genetic-correlations/data/ld_reference/eur_w_ld_chr[1-22] ...
+Traceback (most recent call last):
+  File "/usr/local/bin/ldsc.py", line 642, in <module>
+    sumstats.estimate_rg(args, log)
+  File "/usr/local/lib/python2.7/site-packages/ldscore/sumstats.py", line 397, in estimate_rg
+    alleles=True, dropna=True)
+  File "/usr/local/lib/python2.7/site-packages/ldscore/sumstats.py", line 243, in _read_ld_sumstats
+    ref_ld = _read_ref_ld(args, log)
+  File "/usr/local/lib/python2.7/site-packages/ldscore/sumstats.py", line 82, in _read_ref_ld
+    'reference panel LD Score', ps.ldscore_fromlist)
+  File "/usr/local/lib/python2.7/site-packages/ldscore/sumstats.py", line 152, in _read_chr_split_files
+    out = parsefunc(_splitp(chr_arg), _N_CHR, **kwargs)
+  File "/usr/local/lib/python2.7/site-packages/ldscore/parse.py", line 93, in ldscore_fromlist
+    y = ldscore(fh, num)
+  File "/usr/local/lib/python2.7/site-packages/ldscore/parse.py", line 137, in ldscore
+    s, compression = which_compression(first_fh)
+  File "/usr/local/lib/python2.7/site-packages/ldscore/parse.py", line 43, in which_compression
+    raise IOError('Could not open {F}[./gz/bz2]'.format(F=fh))
+IOError: Could not open /home/lchang24/projects/def-gsarah/lchang24/github/nf-genetic-correlations_fork/nf-genetic-correlations/data/ld_reference/eur_w_ld_chr1.l2.ldscore[./gz/bz2]
+
+Analysis finished at Tue Oct  7 15:18:48 2025
+Total time elapsed: 13.88s
+
+==========================================
+Completed: uacr_male_normal_vs_PD_sexcombined_meta_flipped
+End Time: Tue 07 Oct 2025 03:18:49 PM EDT
+==========================================

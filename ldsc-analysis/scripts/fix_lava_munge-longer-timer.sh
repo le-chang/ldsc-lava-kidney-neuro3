@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --time=4:00:00
+#SBATCH --time=20:00:00
 #SBATCH --mem=16G
 #SBATCH --cpus-per-task=1
 #SBATCH --job-name=munge_lava_fix

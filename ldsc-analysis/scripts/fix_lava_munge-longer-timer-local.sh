@@ -12,7 +12,7 @@ module load StdEnv/2020
 module load python/2.7
 module load scipy-stack/2020a
 #SIF_FILE="/home/lchang24/projects/def-gsarah/lchang24/github/nf-genetic-correlations_fork/nf-genetic-correlations/bin/ldsc_latest.sif"
-OUTPUT_DIR="/home/lchang24/scratch/ldsc_munged_longer"
+OUTPUT_DIR="/home/lchang24/scratch/ldsc_munged_longer_local"
 SNP_LIST_PATH="/home/lchang24/projects/def-gsarah/lchang24/github/nf-genetic-correlations_fork/nf-genetic-correlations/data/ld_reference/w_hm3.snplist"
 LDSC_PATH="/home/lchang24/projects/def-gsarah/lchang24/software/ldsc"
 mkdir -p ${OUTPUT_DIR}

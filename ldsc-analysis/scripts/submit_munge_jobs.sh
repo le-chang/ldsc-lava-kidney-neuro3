@@ -18,6 +18,8 @@ module load apptainer/1.3.5
 
 SIF_FILE="/home/lchang24/projects/def-gsarah/lchang24/github/nf-genetic-correlations_fork/nf-genetic-correlations/bin/ldsc_latest.sif"  # Update this path
 OUTPUT_DIR="/home/lchang24/scratch/ldsc_munged"
+SNP_LIST_PATH="/home/lchang24/projects/def-gsarah/lchang24/github/nf-genetic-correlations_fork/nf-genetic-correlations/data/ld_reference/w_hm3.snplist"
+
 mkdir -p ${OUTPUT_DIR}
 
 # ============================================================================
@@ -27,6 +29,7 @@ mkdir -p ${OUTPUT_DIR}
 apptainer run -W ${SLURM_TMPDIR} ${SIF_FILE} munge_sumstats.py \
     --sumstats /home/lchang24/projects/def-gsarah/lchang24/github/nf-genetic-correlations_fork/nf-genetic-correlations/data/sumstats_original/AD_wightman2021_with_rsid.txt \
     --out ${OUTPUT_DIR}/AD_wightman2021_normal \
+    --merge-alleles ${SNP_LIST_PATH} \
     --N 762917 \
     --snp SNP \
     --a1 A1 \
@@ -38,6 +41,7 @@ apptainer run -W ${SLURM_TMPDIR} ${SIF_FILE} munge_sumstats.py \
 apptainer run -W ${SLURM_TMPDIR} ${SIF_FILE} munge_sumstats.py \
     --sumstats /home/lchang24/projects/def-gsarah/lchang24/github/nf-genetic-correlations_fork/nf-genetic-correlations/data/sumstats_original/AD_wightman2021_with_rsid.txt \
     --out ${OUTPUT_DIR}/AD_wightman2021_flipped \
+    --merge-alleles ${SNP_LIST_PATH} \
     --N 762917 \
     --snp SNP \
     --a1 A2 \
@@ -52,6 +56,7 @@ apptainer run -W ${SLURM_TMPDIR} ${SIF_FILE} munge_sumstats.py \
 apptainer run -W ${SLURM_TMPDIR} ${SIF_FILE} munge_sumstats.py \
     --sumstats /home/lchang24/projects/def-gsarah/sumstats/kidney_neurodegen/processed_sumstats/PD_sexcombined_meta.tsv \
     --out ${OUTPUT_DIR}/PD_sexcombined_meta_normal \
+    --merge-alleles ${SNP_LIST_PATH} \
     --N 214698 \
     --snp SNP \
     --a1 A1 \
@@ -63,6 +68,7 @@ apptainer run -W ${SLURM_TMPDIR} ${SIF_FILE} munge_sumstats.py \
 apptainer run -W ${SLURM_TMPDIR} ${SIF_FILE} munge_sumstats.py \
     --sumstats /home/lchang24/projects/def-gsarah/sumstats/kidney_neurodegen/processed_sumstats/PD_sexcombined_meta.tsv \
     --out ${OUTPUT_DIR}/PD_sexcombined_meta_flipped \
+    --merge-alleles ${SNP_LIST_PATH} \
     --N 214698 \
     --snp SNP \
     --a1 A2 \
@@ -77,6 +83,7 @@ apptainer run -W ${SLURM_TMPDIR} ${SIF_FILE} munge_sumstats.py \
 apptainer run -W ${SLURM_TMPDIR} ${SIF_FILE} munge_sumstats.py \
     --sumstats /home/lchang24/projects/def-gsarah/sumstats/kidney_neurodegen/processed_sumstats/NP_PD_sexcombined_meta.tsv \
     --out ${OUTPUT_DIR}/NP_PD_sexcombined_meta_normal \
+    --merge-alleles ${SNP_LIST_PATH} \
     --N 201289 \
     --snp SNP \
     --a1 A1 \
@@ -88,6 +95,7 @@ apptainer run -W ${SLURM_TMPDIR} ${SIF_FILE} munge_sumstats.py \
 apptainer run -W ${SLURM_TMPDIR} ${SIF_FILE} munge_sumstats.py \
     --sumstats /home/lchang24/projects/def-gsarah/sumstats/kidney_neurodegen/processed_sumstats/NP_PD_sexcombined_meta.tsv \
     --out ${OUTPUT_DIR}/NP_PD_sexcombined_meta_flipped \
+    --merge-alleles ${SNP_LIST_PATH} \
     --N 201289 \
     --snp SNP \
     --a1 A2 \
@@ -102,6 +110,7 @@ apptainer run -W ${SLURM_TMPDIR} ${SIF_FILE} munge_sumstats.py \
 apptainer run -W ${SLURM_TMPDIR} ${SIF_FILE} munge_sumstats.py \
     --sumstats /home/lchang24/projects/def-gsarah/sumstats/kidney_neurodegen/processed_sumstats/PD_sexcomb.tsv \
     --out ${OUTPUT_DIR}/PD_sexcomb_normal \
+    --merge-alleles ${SNP_LIST_PATH} \
     --N 467813 \
     --snp SNP \
     --a1 A1 \
@@ -113,6 +122,7 @@ apptainer run -W ${SLURM_TMPDIR} ${SIF_FILE} munge_sumstats.py \
 apptainer run -W ${SLURM_TMPDIR} ${SIF_FILE} munge_sumstats.py \
     --sumstats /home/lchang24/projects/def-gsarah/sumstats/kidney_neurodegen/processed_sumstats/PD_sexcomb.tsv \
     --out ${OUTPUT_DIR}/PD_sexcomb_flipped \
+    --merge-alleles ${SNP_LIST_PATH} \
     --N 467813 \
     --snp SNP \
     --a1 A2 \
@@ -127,6 +137,7 @@ apptainer run -W ${SLURM_TMPDIR} ${SIF_FILE} munge_sumstats.py \
 apptainer run -W ${SLURM_TMPDIR} ${SIF_FILE} munge_sumstats.py \
     --sumstats /home/lchang24/projects/def-gsarah/sumstats/kidney_neurodegen/PD_females.lava.gz \
     --out ${OUTPUT_DIR}/PD_females_normal \
+    --merge-alleles ${SNP_LIST_PATH} \
     --N 104082 \
     --snp SNP \
     --a1 A1 \
@@ -138,6 +149,7 @@ apptainer run -W ${SLURM_TMPDIR} ${SIF_FILE} munge_sumstats.py \
 apptainer run -W ${SLURM_TMPDIR} ${SIF_FILE} munge_sumstats.py \
     --sumstats /home/lchang24/projects/def-gsarah/sumstats/kidney_neurodegen/PD_females.lava.gz \
     --out ${OUTPUT_DIR}/PD_females_flipped \
+    --merge-alleles ${SNP_LIST_PATH} \
     --N 104082 \
     --snp SNP \
     --a1 A2 \
@@ -152,6 +164,7 @@ apptainer run -W ${SLURM_TMPDIR} ${SIF_FILE} munge_sumstats.py \
 apptainer run -W ${SLURM_TMPDIR} ${SIF_FILE} munge_sumstats.py \
     --sumstats /home/lchang24/projects/def-gsarah/sumstats/kidney_neurodegen/PD_males.lava.gz \
     --out ${OUTPUT_DIR}/PD_males_normal \
+    --merge-alleles ${SNP_LIST_PATH} \
     --N 110616 \
     --snp SNP \
     --a1 A1 \
@@ -163,6 +176,7 @@ apptainer run -W ${SLURM_TMPDIR} ${SIF_FILE} munge_sumstats.py \
 apptainer run -W ${SLURM_TMPDIR} ${SIF_FILE} munge_sumstats.py \
     --sumstats /home/lchang24/projects/def-gsarah/sumstats/kidney_neurodegen/PD_males.lava.gz \
     --out ${OUTPUT_DIR}/PD_males_flipped \
+    --merge-alleles ${SNP_LIST_PATH} \
     --N 110616 \
     --snp SNP \
     --a1 A2 \
@@ -177,6 +191,7 @@ apptainer run -W ${SLURM_TMPDIR} ${SIF_FILE} munge_sumstats.py \
 apptainer run -W ${SLURM_TMPDIR} ${SIF_FILE} munge_sumstats.py \
     --sumstats /home/lchang24/projects/def-gsarah/sumstats/kidney_neurodegen/PDnp_females.lava.gz \
     --out ${OUTPUT_DIR}/PDnp_females_normal \
+    --merge-alleles ${SNP_LIST_PATH} \
     --N 19773 \
     --snp SNP \
     --a1 A1 \
@@ -188,6 +203,7 @@ apptainer run -W ${SLURM_TMPDIR} ${SIF_FILE} munge_sumstats.py \
 apptainer run -W ${SLURM_TMPDIR} ${SIF_FILE} munge_sumstats.py \
     --sumstats /home/lchang24/projects/def-gsarah/sumstats/kidney_neurodegen/PDnp_females.lava.gz \
     --out ${OUTPUT_DIR}/PDnp_females_flipped \
+    --merge-alleles ${SNP_LIST_PATH} \
     --N 19773 \
     --snp SNP \
     --a1 A2 \
@@ -202,6 +218,7 @@ apptainer run -W ${SLURM_TMPDIR} ${SIF_FILE} munge_sumstats.py \
 apptainer run -W ${SLURM_TMPDIR} ${SIF_FILE} munge_sumstats.py \
     --sumstats /home/lchang24/projects/def-gsarah/sumstats/kidney_neurodegen/PDnp_males.lava.gz \
     --out ${OUTPUT_DIR}/PDnp_males_normal \
+    --merge-alleles ${SNP_LIST_PATH} \
     --N 24053 \
     --snp SNP \
     --a1 A1 \
@@ -213,6 +230,7 @@ apptainer run -W ${SLURM_TMPDIR} ${SIF_FILE} munge_sumstats.py \
 apptainer run -W ${SLURM_TMPDIR} ${SIF_FILE} munge_sumstats.py \
     --sumstats /home/lchang24/projects/def-gsarah/sumstats/kidney_neurodegen/PDnp_males.lava.gz \
     --out ${OUTPUT_DIR}/PDnp_males_flipped \
+    --merge-alleles ${SNP_LIST_PATH} \
     --N 24053 \
     --snp SNP \
     --a1 A2 \
@@ -227,6 +245,7 @@ apptainer run -W ${SLURM_TMPDIR} ${SIF_FILE} munge_sumstats.py \
 apptainer run -W ${SLURM_TMPDIR} ${SIF_FILE} munge_sumstats.py \
     --sumstats /home/lchang24/projects/def-gsarah/lchang24/github/nf-genetic-correlations_fork/nf-genetic-correlations/data/sumstats_original/PD_nalls2019_with_rsid.txt \
     --out ${OUTPUT_DIR}/PD_nalls2019_normal \
+    --merge-alleles ${SNP_LIST_PATH} \
     --N 482730 \
     --snp SNP \
     --a1 A1 \
@@ -238,6 +257,7 @@ apptainer run -W ${SLURM_TMPDIR} ${SIF_FILE} munge_sumstats.py \
 apptainer run -W ${SLURM_TMPDIR} ${SIF_FILE} munge_sumstats.py \
     --sumstats /home/lchang24/projects/def-gsarah/lchang24/github/nf-genetic-correlations_fork/nf-genetic-correlations/data/sumstats_original/PD_nalls2019_with_rsid.txt \
     --out ${OUTPUT_DIR}/PD_nalls2019_flipped \
+    --merge-alleles ${SNP_LIST_PATH} \
     --N 482730 \
     --snp SNP \
     --a1 A2 \
@@ -252,6 +272,7 @@ apptainer run -W ${SLURM_TMPDIR} ${SIF_FILE} munge_sumstats.py \
 apptainer run -W ${SLURM_TMPDIR} ${SIF_FILE} munge_sumstats.py \
     --sumstats /home/lchang24/projects/def-gsarah/lchang24/github/nf-genetic-correlations_fork/nf-genetic-correlations/data/sumstats_original/uacr_male.tsv \
     --out ${OUTPUT_DIR}/uacr_male_normal \
+    --merge-alleles ${SNP_LIST_PATH} \
     --N 63642 \
     --snp SNP \
     --a1 A1 \
@@ -263,6 +284,7 @@ apptainer run -W ${SLURM_TMPDIR} ${SIF_FILE} munge_sumstats.py \
 apptainer run -W ${SLURM_TMPDIR} ${SIF_FILE} munge_sumstats.py \
     --sumstats /home/lchang24/projects/def-gsarah/lchang24/github/nf-genetic-correlations_fork/nf-genetic-correlations/data/sumstats_original/uacr_male.tsv \
     --out ${OUTPUT_DIR}/uacr_male_flipped \
+    --merge-alleles ${SNP_LIST_PATH} \
     --N 63642 \
     --snp SNP \
     --a1 A2 \
@@ -277,6 +299,7 @@ apptainer run -W ${SLURM_TMPDIR} ${SIF_FILE} munge_sumstats.py \
 apptainer run -W ${SLURM_TMPDIR} ${SIF_FILE} munge_sumstats.py \
     --sumstats /home/lchang24/projects/def-gsarah/lchang24/github/nf-genetic-correlations_fork/nf-genetic-correlations/data/sumstats_original/uacr_sex_combined.tsv \
     --out ${OUTPUT_DIR}/uacr_sex_combined_normal \
+    --merge-alleles ${SNP_LIST_PATH} \
     --N 122745 \
     --snp SNP \
     --a1 A1 \
@@ -288,6 +311,7 @@ apptainer run -W ${SLURM_TMPDIR} ${SIF_FILE} munge_sumstats.py \
 apptainer run -W ${SLURM_TMPDIR} ${SIF_FILE} munge_sumstats.py \
     --sumstats /home/lchang24/projects/def-gsarah/lchang24/github/nf-genetic-correlations_fork/nf-genetic-correlations/data/sumstats_original/uacr_sex_combined.tsv \
     --out ${OUTPUT_DIR}/uacr_sex_combined_flipped \
+    --merge-alleles ${SNP_LIST_PATH} \
     --N 122745 \
     --snp SNP \
     --a1 A2 \
@@ -302,6 +326,7 @@ apptainer run -W ${SLURM_TMPDIR} ${SIF_FILE} munge_sumstats.py \
 apptainer run -W ${SLURM_TMPDIR} ${SIF_FILE} munge_sumstats.py \
     --sumstats /home/lchang24/projects/def-gsarah/lchang24/github/nf-genetic-correlations_fork/nf-genetic-correlations/data/sumstats_original/uacr_female.tsv \
     --out ${OUTPUT_DIR}/uacr_female_normal \
+    --merge-alleles ${SNP_LIST_PATH} \
     --N 59103 \
     --snp SNP \
     --a1 A1 \
@@ -313,6 +338,7 @@ apptainer run -W ${SLURM_TMPDIR} ${SIF_FILE} munge_sumstats.py \
 apptainer run -W ${SLURM_TMPDIR} ${SIF_FILE} munge_sumstats.py \
     --sumstats /home/lchang24/projects/def-gsarah/lchang24/github/nf-genetic-correlations_fork/nf-genetic-correlations/data/sumstats_original/uacr_female.tsv \
     --out ${OUTPUT_DIR}/uacr_female_flipped \
+    --merge-alleles ${SNP_LIST_PATH} \
     --N 59103 \
     --snp SNP \
     --a1 A2 \

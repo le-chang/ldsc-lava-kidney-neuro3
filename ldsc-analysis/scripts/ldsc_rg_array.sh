@@ -23,7 +23,7 @@ OUTPUT_DIR="/home/lchang24/scratch/ldsc_results"
 
 # LD Score reference panel - UPDATE THIS PATH!
 LDSC_REF="/home/lchang24/projects/def-gsarah/lchang24/github/nf-genetic-correlations_fork/nf-genetic-correlations/data/ld_reference/eur_w_ld_chr/"  # UPDATE THIS PATH!
-
+SNP_LIST_PATH="/home/lchang24/projects/def-gsarah/lchang24/github/nf-genetic-correlations_fork/nf-genetic-correlations/data/ld_reference/w_hm3.snplist"
 # ============================================================================
 # Define all trait pairs
 # ============================================================================

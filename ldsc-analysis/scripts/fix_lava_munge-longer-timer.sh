@@ -12,7 +12,7 @@ module load StdEnv/2023
 module load apptainer/1.3.5
 
 SIF_FILE="/home/lchang24/projects/def-gsarah/lchang24/github/nf-genetic-correlations_fork/nf-genetic-correlations/bin/ldsc_latest.sif"
-OUTPUT_DIR="/home/lchang24/scratch/ldsc_munged"
+OUTPUT_DIR="/home/lchang24/scratch/ldsc_munged_longer"
 SNP_LIST_PATH="/home/lchang24/projects/def-gsarah/lchang24/github/nf-genetic-correlations_fork/nf-genetic-correlations/data/ld_reference/w_hm3.snplist"
 
 mkdir -p ${OUTPUT_DIR}

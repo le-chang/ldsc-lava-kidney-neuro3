@@ -61,33 +61,22 @@ echo "Test 3: WITH --merge-alleles (this is where it might hang)"
 echo "================================================"
 echo "Starting at: $(date)"
 
-# Add verbose output and use stdbuf to force unbuffered output
-stdbuf -oL -eL apptainer exec \
+# Simplified version - just call munge_sumstats.py directly like in Test 2
+time apptainer exec \
     --bind /home/lchang24:/home/lchang24 \
     --bind /scratch:/scratch \
     ${SIF_FILE} \
-    bash -c "
-    set -x
-    echo 'Inside container at: \$(date)'
-    echo 'Checking files are accessible:'
-    ls -lh ${SUMSTATS}
-    ls -lh ${SNP_LIST_PATH}
-    echo 'Starting munge_sumstats with merge-alleles at: \$(date)'
-    
-    time python /ldsc/munge_sumstats.py \
-        --sumstats ${SUMSTATS} \
-        --out ${OUTPUT_DIR}/test_with_merge \
-        --merge-alleles ${SNP_LIST_PATH} \
-        --N 19773 \
-        --ignore N \
-        --snp SNP \
-        --a1 A1 \
-        --a2 A2 \
-        --p P \
-        --signed-sumstats BETA,0
-    
-    echo 'Completed at: \$(date)'
-    "
+    munge_sumstats.py \
+    --sumstats ${SUMSTATS} \
+    --out ${OUTPUT_DIR}/test_with_merge \
+    --merge-alleles ${SNP_LIST_PATH} \
+    --N 19773 \
+    --ignore N \
+    --snp SNP \
+    --a1 A1 \
+    --a2 A2 \
+    --p P \
+    --signed-sumstats BETA,0
 
 echo "================================================"
 echo "Test 3 completed at: $(date)"

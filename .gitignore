@@ -1,1 +1,3 @@
 /ldsc-analysis/scripts/logs
+/ldsc-analysis/scripts/*out
+/ldsc-analysis/scripts/*err

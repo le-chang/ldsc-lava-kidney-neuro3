@@ -1,0 +1,17 @@
+[lchang24@narval1 scripts2]$ bash check_lava.sh 
+==========================================
+Checking LAVA Installation
+==========================================
+
+R Library Path: /home/lchang24/.local/R/4.3.1/
+
+Running LAVA version 0.1.5
+✓ LAVA is installed!
+Version: 0.1.5 
+Location: /home/lchang24/.local/R/4.3.1/LAVA 
+
+==========================================
+To install LAVA if not present, run:
+sbatch install_lava.sh
+==========================================
+[lchang24@narval1 scripts2]$ 

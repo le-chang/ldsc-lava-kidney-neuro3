@@ -10,7 +10,7 @@
 # Description: Run LAVA analysis comparing 1000G vs UKB reference
 # for PD_females vs uacr_female trait pair
 
-module load r/4.2.1
+module load r/4.3.1
 
 # Define paths
 PROJECT_DIR="/home/lchang24/projects/def-gsarah/lchang24/github/ldsc-lava-kidney-neuro3/lava-analysis"
@@ -19,6 +19,11 @@ OUTPUT_DIR="${PROJECT_DIR}/results"
 
 # Create output directory if it doesn't exist
 mkdir -p ${OUTPUT_DIR}
+
+echo "Starting LAVA analysis comparison..."
+echo "Using R 4.3.1"
+echo "Project directory: ${PROJECT_DIR}"
+echo ""
 
 # Run LAVA analysis with 1000G reference
 echo "Running LAVA with 1000G reference..."

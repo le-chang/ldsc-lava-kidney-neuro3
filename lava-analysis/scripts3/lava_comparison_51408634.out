@@ -1,0 +1,15 @@
+Starting LAVA analysis comparison...
+Using R 4.3.1
+Project directory: /home/lchang24/projects/def-gsarah/lchang24/github/ldsc-lava-kidney-neuro3/lava-analysis
+
+Running LAVA with 1000G reference...
+[1] "Checking if formatted summary statistics exist..."
+[1] "✓ PD_females - found"
+[1] "✓ uacr_female - found"
+[1] "Info file created: /home/lchang24/projects/def-gsarah/lchang24/github/ldsc-lava-kidney-neuro3/lava-analysis/scripts3/info_file_1000g.txt"
+[1] "Sample overlap file created: /home/lchang24/projects/def-gsarah/lchang24/github/ldsc-lava-kidney-neuro3/lava-analysis/scripts3/sample_overlap_1000g.txt"
+[1] "Loading loci file..."
+[1] "Loading input data with 2495 loci..."
+[1] "...Processing input info"
+[1] "...** All phenotypes treated as CONTINUOUS ('PD_females', 'uacr_female')"
+[1] "...Reading in sumstats"

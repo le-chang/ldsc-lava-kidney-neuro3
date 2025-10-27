@@ -1,0 +1,3 @@
+phenotype	cases	controls	filename
+PD_females	NA	NA	/home/lchang24/projects/def-gsarah/lchang24/github/ldsc-lava-kidney-neuro3/lava-analysis/output/formatted_PD_females.tsv
+uacr_female	NA	NA	/home/lchang24/projects/def-gsarah/lchang24/github/ldsc-lava-kidney-neuro3/lava-analysis/output/formatted_uacr_female.tsv

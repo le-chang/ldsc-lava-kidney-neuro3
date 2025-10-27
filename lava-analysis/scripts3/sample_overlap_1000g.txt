@@ -1,0 +1,3 @@
+	PD_females	uacr_female
+PD_females	1	0
+uacr_female	0	1

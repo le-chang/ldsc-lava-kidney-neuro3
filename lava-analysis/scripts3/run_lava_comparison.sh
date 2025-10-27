@@ -13,6 +13,8 @@
 module load StdEnv/2023
 module load r/4.3.1
 
+export R_LIBS=~/.local/R/4.3.1/
+
 # Define paths
 PROJECT_DIR="/home/lchang24/projects/def-gsarah/lchang24/github/ldsc-lava-kidney-neuro3/lava-analysis"
 SCRIPT_DIR="${PROJECT_DIR}/scripts3"

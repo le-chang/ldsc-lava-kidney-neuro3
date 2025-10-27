@@ -7,7 +7,7 @@ library(data.table)
 
 # Set paths ---------------------------------------------------------------
 sumstats_dir <- "/home/lchang24/projects/def-gsarah/sumstats/kidney_neurodegen"
-output_dir <- sumstats_dir
+output_dir <- "/home/lchang24/projects/def-gsarah/lchang24/github/ldsc-lava-kidney-neuro3/lava-analysis/output"
 
 # Format PD_females -------------------------------------------------------
 print("Formatting PD_females.lava.gz...")

@@ -10,6 +10,7 @@
 # Description: Run LAVA analysis comparing 1000G vs UKB reference
 # for PD_females vs uacr_female trait pair
 
+module load StdEnv/2023
 module load r/4.3.1
 
 # Define paths

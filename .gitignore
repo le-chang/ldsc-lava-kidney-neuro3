@@ -2,3 +2,4 @@
 /ldsc-analysis/scripts/*out
 /ldsc-analysis/scripts/*err
 /lava-analysis/output
+/lava-analysis/results

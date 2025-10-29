@@ -1,0 +1,121 @@
+[lchang24@narval2 scripts3]$ Rscript analyze_lava_results.R
+========================================
+LAVA Results Analysis
+========================================
+
+Loading data...
+   1000G univariate - loaded 3763 rows
+     Columns: locus, chr, start, stop, n_snps, n_pcs, phen, h2.obs, p 
+   UKB univariate - loaded 2129 rows
+     Columns: locus, chr, start, stop, n_snps, n_pcs, phen, h2.obs, p 
+   1000G bivariate - loaded 6 rows
+     Columns: locus, chr, start, stop, n_snps, n_pcs, phen1, phen2, rho, rho.lower, rho.upper, r2, r2.lower, r2.upper, p 
+   UKB bivariate - file is empty
+
+Standardizing column names...
+
+========================================
+SUMMARY STATISTICS
+========================================
+
+Univariate significance threshold: 2.004008e-05 
+(Bonferroni correction: 0.05 / 2495 loci)
+
+1000G Reference:
+---------------- 
+  Total univariate tests: 3763 
+  Significant tests: 135 (3.6%) 
+     PD_females : 1775 tests, 50 significant
+     uacr_female : 1988 tests, 85 significant
+  Bivariate tests: 6 
+  Significant (p<0.05): 1 
+
+UKB Reference:
+-------------- 
+  Total univariate tests: 2129 
+  Significant tests: 10 (0.5%) 
+     PD_females : 1095 tests, 9 significant
+     uacr_female : 1034 tests, 1 significant
+  No bivariate tests performed
+
+
+                          Metric Value
+1       Univariate tests (1000G)  3763
+2         Univariate tests (UKB)  2129
+3 Significant univariate (1000G)   135
+4   Significant univariate (UKB)    10
+5        Bivariate tests (1000G)     6
+6          Bivariate tests (UKB)     0
+7  Significant bivariate (1000G)     1
+8    Significant bivariate (UKB)     0
+
+========================================
+UNIVARIATE COMPARISON
+========================================
+
+Correlation of h2 estimates: 0.498 
+
+Top 10 significant loci:
+    locus   chr     start      stop        phen   h2_1000g     p_1000g
+    <int> <int>     <int>     <int>      <char>      <num>       <num>
+ 1:  2207    17  43460501  44865832  PD_females 0.00304163 3.30825e-37
+ 2:   681     4  90236972  91309863  PD_females 0.00352839 1.78192e-36
+ 3:   965     6  32586785  32629239  PD_females 0.00243653 8.62659e-29
+ 4:   597     4    812416   1529267  PD_females 0.00186910 5.51116e-15
+ 5:  1504    10  15946678  17065860 uacr_female 0.00375642 8.94505e-15
+ 6:   966     6  32629240  32682213  PD_females 0.00111276 9.01771e-13
+ 7:   377     2 196446300 198140350 uacr_female 0.00273066 9.50975e-11
+ 8:  1779    12  40017397  41198229  PD_females 0.00143512 3.69072e-10
+ 9:  2046    15  35118928  36583327 uacr_female 0.00291417 4.60510e-10
+10:  1187     7 100849308 101950748 uacr_female 0.00265753 1.59246e-09
+         h2_ukb       p_ukb       min_p
+          <num>       <num>       <num>
+ 1: 0.001470010 4.58632e-17 3.30825e-37
+ 2: 0.002345920 1.05313e-20 1.78192e-36
+ 3: 0.000344385 1.51097e-05 8.62659e-29
+ 4: 0.001385850 2.46403e-10 5.51116e-15
+ 5: 0.002037290 9.79815e-06 8.94505e-15
+ 6: 0.000368876 3.31203e-06 9.01771e-13
+ 7: 0.001127810 2.79311e-03 9.50975e-11
+ 8: 0.001234520 5.31542e-08 3.69072e-10
+ 9:          NA          NA 4.60510e-10
+10: 0.000437957 1.55219e-01 1.59246e-09
+
+Creating plots...
+  Scatter plots saved
+  Manhattan plot saved: 1000g 
+  Manhattan plot saved: ukb 
+
+========================================
+BIVARIATE RESULTS
+========================================
+
+1000G bivariate results:
+   locus   chr     start      stop        rho         p
+   <int> <int>     <int>     <int>      <num>     <num>
+1:   908     5 158484776 159663733 -0.0870399 0.6466150
+2:   966     6  32629240  32682213 -0.3365460 0.0469149
+3:  1657    11  45019560  46316005  0.3141380 0.0683354
+4:  1844    12 115439452 116197675  0.3144620 0.1123890
+5:  1948    13 109813577 110995432  0.0736186 0.6674790
+6:  2311    19   3893910   4741718 -0.2404710 0.1582930
+
+========================================
+ANALYSIS COMPLETE
+========================================
+
+Output files saved to: /home/lchang24/projects/def-gsarah/lchang24/github/ldsc-lava-kidney-neuro3/lava-analysis/results/comparison 
+
+Key files:
+  - summary_report.tsv
+  - univariate_comparison.tsv
+  - top_significant_loci.tsv
+  - univariate_scatter.pdf
+  - univariate_pvalue_comparison.pdf
+  - manhattan_1000g.pdf
+  - manhattan_ukb.pdf
+
+Key findings:
+  - 1000G: 135 significant univariate loci
+  - UKB: 10 significant univariate loci
+  - Bivariate correlations: 6 

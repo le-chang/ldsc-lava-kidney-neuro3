@@ -18,7 +18,7 @@ export R_LIBS=~/.local/R/4.3.1/:$R_LIBS
 
 # Define paths
 PROJECT_DIR="/home/lchang24/projects/def-gsarah/lchang24/github/ldsc-lava-kidney-neuro3/lava-analysis"
-SCRIPT_DIR="${PROJECT_DIR}/scripts3"
+SCRIPT_DIR="${PROJECT_DIR}/scripts4"
 
 echo "========================================="
 echo "LAVA Analysis - 4 Traits"

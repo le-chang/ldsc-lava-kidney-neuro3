@@ -42,7 +42,7 @@ for (i in 1:nrow(info_data)) {
   }
 }
 
-info_file <- file.path(project_dir, "scripts3", "info_file_4traits.txt")
+info_file <- file.path(project_dir, "scripts4", "info_file_4traits.txt")
 write.table(info_data, info_file, sep = "\t", row.names = FALSE, quote = FALSE)
 print(paste("Info file created:", info_file))
 
@@ -60,7 +60,7 @@ sample_overlap <- matrix(c(
 
 rownames(sample_overlap) <- colnames(sample_overlap) <- c("uacr", "egfr", "hematuria", "pd")
 
-sample_overlap_file <- file.path(project_dir, "scripts3", "sample_overlap_4traits.txt")
+sample_overlap_file <- file.path(project_dir, "scripts4", "sample_overlap_4traits.txt")
 write.table(sample_overlap, sample_overlap_file, sep = "\t", quote = FALSE, col.names = NA)
 print(paste("Sample overlap file created:", sample_overlap_file))
 

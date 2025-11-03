@@ -10,8 +10,8 @@ library(data.table)
 project_dir <- "/home/lchang24/projects/def-gsarah/lchang24/github/ldsc-lava-kidney-neuro3/lava-analysis"
 
 # Define paths
-ref_prefix <- "/home/lchang24/projects/def-gsarah/lchang24/github/nf-genetic-correlations_fork/nf-genetic-correlations/data/ld_reference/lava_ld_ref/ukb_eur/lava-ukb-v1.1"
-loc_file <- "/home/lchang24/projects/def-gsarah/lchang24/github/nf-genetic-correlations_fork/nf-genetic-correlations/data/lava_locus_file/blocks_s2500_m25_f1_w200.GRCh37_hg19.locfile"
+ref_prefix <- "/home/lchang24/projects/def-gsarah/sumstats/kidney_neurodegen/lava_ld_ref/ukb_eur/lava-ukb-v1.1"
+loc_file <- "/home/lchang24/projects/def-gsarah/sumstats/kidney_neurodegen/lava_locus_file/blocks_s2500_m25_f1_w200.GRCh37_hg19.locfile"
 formatted_sumstats_dir <- file.path(project_dir, "output")
 output_dir <- file.path(project_dir, "results", "4traits")
 

@@ -1,0 +1,5 @@
+phenotype	cases	controls	filename
+uacr	NA	NA	/home/lchang24/projects/def-gsarah/lchang24/github/ldsc-lava-kidney-neuro3/lava-analysis/output/formatted_uacr_sexcombined.tsv
+egfr	NA	NA	/home/lchang24/projects/def-gsarah/lchang24/github/ldsc-lava-kidney-neuro3/lava-analysis/output/formatted_egfr_sexcombined.tsv
+hematuria	NA	NA	/home/lchang24/projects/def-gsarah/lchang24/github/ldsc-lava-kidney-neuro3/lava-analysis/output/formatted_hematuria_sexcombined.tsv
+pd	NA	NA	/home/lchang24/projects/def-gsarah/lchang24/github/ldsc-lava-kidney-neuro3/lava-analysis/output/formatted_pd_sexcombined.tsv

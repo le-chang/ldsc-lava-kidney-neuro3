@@ -1,0 +1,5 @@
+	uacr	egfr	hematuria	pd
+uacr	1	0	0	0
+egfr	0	1	0	0
+hematuria	0	0	1	0
+pd	0	0	0	1

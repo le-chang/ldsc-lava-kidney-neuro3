@@ -5,3 +5,5 @@
 /lava-analysis/results
 /lava-analysis/scripts3/logs
 /lava-analysis/scripts4/logs
+/lava-analysis/scripts4/*err
+/lava-analysis/scripts4/*out

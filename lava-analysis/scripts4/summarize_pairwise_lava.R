@@ -80,12 +80,12 @@ for (pair in trait_pairs) {
             mutate(analysis = pair)
           
           cat("\n  Top 5 significant results:\n")
-          bivar %>%
+          top_results <- bivar %>%
             filter(p < 0.05) %>%
             arrange(p) %>%
             head(5) %>%
-            select(locus, chr, start, stop, rho, p) %>%
-            print()
+            select(locus, chr, start, stop, rho, p)
+          print(top_results)
         } else {
           cat("  No significant bivariate correlations found\n")
         }
@@ -128,7 +128,7 @@ univar_summary <- univar_combined %>%
   ) %>%
   arrange(analysis, phen)
 
-print(univar_summary, n = Inf)
+print(univar_summary)
 
 # Combine bivariate (only if we have results)
 if (length(all_bivar) > 0) {
@@ -183,26 +183,27 @@ if (length(sig_bivar) > 0) {
   cat(paste("Total significant loci:", nrow(sig_combined), "\n\n"))
   
   # Show all significant results sorted by p-value
-  sig_combined %>%
+  sig_results_table <- sig_combined %>%
     arrange(p) %>%
-    select(analysis, locus, chr, start, stop, phen1, phen2, rho, p) %>%
-    print(n = Inf)
+    select(analysis, locus, chr, start, stop, phen1, phen2, rho, p)
+  
+  print(as.data.frame(sig_results_table))
   
   # Chromosome distribution
   cat("\n\nChromosome distribution of significant loci:\n")
-  sig_combined %>%
+  chr_dist <- sig_combined %>%
     group_by(analysis, chr) %>%
     summarise(n_loci = n(), .groups = "drop") %>%
-    arrange(analysis, chr) %>%
-    print(n = Inf)
+    arrange(analysis, chr)
+  print(as.data.frame(chr_dist))
   
   # Effect direction summary
   cat("\n\nEffect direction (sign of rho):\n")
-  sig_combined %>%
+  effect_dir <- sig_combined %>%
     mutate(direction = ifelse(rho > 0, "Positive", "Negative")) %>%
     group_by(analysis, direction) %>%
-    summarise(n_loci = n(), .groups = "drop") %>%
-    print()
+    summarise(n_loci = n(), .groups = "drop")
+  print(as.data.frame(effect_dir))
   
 } else {
   cat("\n\nNo significant bivariate results found across all analyses.\n")
@@ -270,8 +271,9 @@ cat(paste0(rep("=", 70), collapse = ""), "\n")
 cat("OVERALL SUMMARY\n")
 cat(paste0(rep("=", 70), collapse = ""), "\n\n")
 
+n_loci_per_trait <- nrow(univar_combined)/6
 cat("UNIVARIATE RESULTS:\n")
-cat(sprintf("  Total loci tested: ~%d per trait\n", nrow(univar_combined)/6))
+cat(sprintf("  Approximate loci tested per trait: %.0f\n", n_loci_per_trait))
 cat(sprintf("  Total tests: %d\n", nrow(univar_combined)))
 cat(sprintf("  Significant (p < 0.05): %d\n", sum(univar_combined$p < 0.05, na.rm = TRUE)))
 cat(sprintf("  Significance rate: %.2f%%\n\n", 
@@ -283,8 +285,10 @@ if (length(all_bivar) > 0) {
   cat(sprintf("  Significant (p < 0.05): %d\n", sum(bivar_combined$p < 0.05, na.rm = TRUE)))
   cat(sprintf("  Significant (p < 0.01): %d\n", sum(bivar_combined$p < 0.01, na.rm = TRUE)))
   cat(sprintf("  Significant (p < 0.001): %d\n", sum(bivar_combined$p < 0.001, na.rm = TRUE)))
-  cat(sprintf("  Significance rate: %.2f%%\n\n", 
-              100 * sum(bivar_combined$p < 0.05, na.rm = TRUE) / nrow(bivar_combined)))
+  if (nrow(bivar_combined) > 0) {
+    cat(sprintf("  Significance rate: %.2f%%\n\n", 
+                100 * sum(bivar_combined$p < 0.05, na.rm = TRUE) / nrow(bivar_combined)))
+  }
 } else {
   cat("BIVARIATE RESULTS:\n")
   cat("  No bivariate tests performed (no loci passed univariate threshold)\n\n")
@@ -312,15 +316,12 @@ for (pair in trait_pairs) {
       cat(sprintf("  Strongest correlation: rho = %.3f\n", 
                   sig_loci$rho[which.max(abs(sig_loci$rho))]))
       
-      cat("\n  Top significant loci:\n")
-      sig_loci %>%
-        head(10) %>%
-        mutate(
-          position = paste0("chr", chr, ":", start, "-", stop),
-          rho_ci = sprintf("%.3f [%.3f, %.3f]", rho, rho.lower, rho.upper)
-        ) %>%
-        select(locus, position, rho_ci, p) %>%
-        print()
+      cat("\n  Significant loci details:\n")
+      for (i in 1:nrow(sig_loci)) {
+        cat(sprintf("    Locus %d (chr%d:%d-%d): rho=%.3f [%.3f, %.3f], p=%.2e\n",
+                    sig_loci$locus[i], sig_loci$chr[i], sig_loci$start[i], sig_loci$stop[i],
+                    sig_loci$rho[i], sig_loci$rho.lower[i], sig_loci$rho.upper[i], sig_loci$p[i]))
+      }
     } else {
       cat("  No significant correlations found.\n")
     }
@@ -344,15 +345,8 @@ if (length(sig_bivar) > 0) {
   
   if (nrow(chr_distribution) > 0) {
     cat("CHROMOSOMAL CLUSTERING:\n")
-    if (chr_distribution$n[1] >= 5) {
-      cat(sprintf("  Strong clustering on chromosome %d (%d loci, %.1f%% of significant)\n",
-                  chr_distribution$chr[1], 
-                  chr_distribution$n[1],
-                  100 * chr_distribution$n[1] / nrow(sig_combined)))
-    } else {
-      cat(sprintf("  Chromosome %d has the most significant loci (%d loci)\n",
-                  chr_distribution$chr[1], chr_distribution$n[1]))
-    }
+    cat(sprintf("  Chromosome %d: %d significant loci\n",
+                chr_distribution$chr[1], chr_distribution$n[1]))
     cat("\n")
   }
   
@@ -370,7 +364,7 @@ if (length(sig_bivar) > 0) {
   
   # Effect direction
   cat("EFFECT DIRECTIONS:\n")
-  sig_combined %>%
+  effect_summary <- sig_combined %>%
     mutate(
       direction = case_when(
         rho > 0.5 ~ "Strong positive",
@@ -380,16 +374,20 @@ if (length(sig_bivar) > 0) {
       )
     ) %>%
     group_by(analysis, direction) %>%
-    summarise(n = n(), .groups = "drop") %>%
-    print()
+    summarise(n = n(), .groups = "drop")
+  
+  for (i in 1:nrow(effect_summary)) {
+    cat(sprintf("  %s - %s: %d loci\n", 
+                effect_summary$analysis[i], effect_summary$direction[i], effect_summary$n[i]))
+  }
 } else {
   cat(paste0(rep("=", 70), collapse = ""), "\n")
   cat("KEY FINDINGS\n")
   cat(paste0(rep("=", 70), collapse = ""), "\n\n")
-  cat("No significant bivariate correlations detected.\n")
-  cat("Possible reasons:\n")
-  cat("  - No loci passed univariate threshold in both traits\n")
-  cat("  - True absence of local genetic correlations\n")
+  cat("Limited significant bivariate correlations detected.\n")
+  cat("\nPossible reasons:\n")
+  cat("  - Few loci passed univariate threshold in both traits simultaneously\n")
+  cat("  - True absence of strong local genetic correlations\n")
   cat("  - Insufficient power to detect weak correlations\n")
 }
 
@@ -418,7 +416,8 @@ lava_summary <- bivar_summary %>%
     pair = case_when(
       analysis == "egfr_pd" ~ "eGFR - PD",
       analysis == "hematuria_pd" ~ "Hematuria - PD",
-      analysis == "uacr_pd" ~ "uACR - PD"
+      analysis == "uacr_pd" ~ "uACR - PD",
+      TRUE ~ analysis
     )
   ) %>%
   select(pair, n_tests, n_sig_05, n_sig_01, min_p, max_abs_rho)
@@ -427,7 +426,7 @@ comparison <- ldsc_results %>%
   left_join(lava_summary, by = "pair") %>%
   mutate(
     ldsc_result = sprintf("rg=%.4f (SE=%.4f), p=%.3f", ldsc_rg, ldsc_se, ldsc_p),
-    lava_result = ifelse(n_tests > 0,
+    lava_result = ifelse(!is.na(n_tests) & n_tests > 0,
                          sprintf("%d/%d sig (p<0.05), min_p=%.2e", n_sig_05, n_tests, min_p),
                          "No tests (no loci passed threshold)")
   )
@@ -436,9 +435,7 @@ cat("\n\n========================================\n")
 cat("LDSC vs LAVA COMPARISON\n")
 cat("========================================\n\n")
 
-comparison %>%
-  select(pair, ldsc_result, lava_result) %>%
-  print()
+print(comparison %>% select(pair, ldsc_result, lava_result))
 
 write.table(comparison, 
             file.path(output_dir, "ldsc_vs_lava_comparison.tsv"),

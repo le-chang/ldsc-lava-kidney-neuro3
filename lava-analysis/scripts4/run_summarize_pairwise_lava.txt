@@ -1,0 +1,28 @@
+cd /home/lchang24/projects/def-gsarah/lchang24/github/ldsc-lava-kidney-neuro3/lava-analysis/scripts4
+
+module load r/4.3.1
+export R_LIBS=~/.local/R/4.3.1/:$R_LIBS
+
+Rscript summarize_pairwise_lava.R
+```
+
+## What This Script Does:
+
+1. **Reads all pairwise results** (egfr_pd, hematuria_pd, uacr_pd)
+2. **Generates comprehensive summaries**:
+   - Total tests and significant findings per pair
+   - Top significant results with genomic locations
+   - Chromosome distribution
+   - Effect directions (positive/negative correlations)
+3. **Creates comparison with LDSC** global results
+4. **Saves multiple output files**:
+   - Combined tables for all analyses
+   - Filtered significant results only
+   - Detailed text report
+   - Summary statistics table
+
+## Output Files:
+
+All results will be saved in:
+```
+/home/lchang24/projects/def-gsarah/lchang24/github/ldsc-lava-kidney-neuro3/lava-analysis/results/pairwise/summary/

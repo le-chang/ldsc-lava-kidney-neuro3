@@ -1,0 +1,4 @@
+cd /home/lchang24/projects/def-gsarah/lchang24/github/ldsc-lava-kidney-neuro3/lava-analysis/scripts4
+module load r/4.3.1
+export R_LIBS=~/.local/R/4.3.1/:$R_LIBS
+Rscript summarize_lava_results.R

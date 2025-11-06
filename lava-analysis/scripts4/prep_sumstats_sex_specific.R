@@ -48,6 +48,10 @@ pd_f_formatted <- pd_f %>%
   mutate(Z = BETA / SE) %>%
   select(SNP, CHR, BP, A1, A2, N, Z, BETA, SE, P, A1_AF)
 
+# Store stats BEFORE removing
+female_pd_n <- unique(pd_f_formatted$N)[1]
+female_pd_snps <- nrow(pd_f_formatted)
+
 rm(pd_f)
 gc()
 
@@ -87,6 +91,10 @@ egfr_f_formatted <- egfr_f %>%
   select(SNP, CHR, BP, A1, A2, N, Z, BETA, SE, P, MAF) %>%
   filter(!is.na(SNP), !is.na(CHR), !is.na(BP))
 
+# Store stats BEFORE removing
+female_egfr_n <- unique(egfr_f_formatted$N)[1]
+female_egfr_snps <- nrow(egfr_f_formatted)
+
 rm(egfr_f)
 gc()
 
@@ -115,6 +123,10 @@ report_memory("After loading")
 uacr_f_formatted <- uacr_f %>%
   mutate(Z = BETA / SE) %>%
   select(SNP, CHR, BP, A1, A2, N, Z, BETA, SE, P, MAF)
+
+# Store stats BEFORE removing
+female_uacr_n <- unique(uacr_f_formatted$N)[1]
+female_uacr_snps <- nrow(uacr_f_formatted)
 
 rm(uacr_f)
 gc()
@@ -150,6 +162,10 @@ hematuria_f_formatted <- hematuria_f %>%
   ) %>%
   select(SNP, CHR, BP, A1, A2, N, Z, BETA, SE, P, MAF)
 
+# Store stats BEFORE removing
+female_hematuria_n <- unique(hematuria_f_formatted$N)[1]
+female_hematuria_snps <- nrow(hematuria_f_formatted)
+
 rm(hematuria_f)
 gc()
 
@@ -158,18 +174,6 @@ fwrite(hematuria_f_formatted,
        sep = "\t")
 cat("  ✓ Saved:", file.path(output_dir, "females", "formatted_hematuria_female.tsv"), "\n")
 report_memory("After saving")
-
-# Store summary stats before clearing
-female_summary <- list(
-  pd_n = unique(pd_f_formatted$N)[1],
-  egfr_n = unique(egfr_f_formatted$N)[1],
-  uacr_n = unique(uacr_f_formatted$N)[1],
-  hematuria_n = unique(hematuria_f_formatted$N)[1],
-  pd_snps = nrow(pd_f_formatted),
-  egfr_snps = nrow(egfr_f_formatted),
-  uacr_snps = nrow(uacr_f_formatted),
-  hematuria_snps = nrow(hematuria_f_formatted)
-)
 
 rm(hematuria_f_formatted)
 gc()
@@ -203,6 +207,10 @@ pd_m_formatted <- pd_m %>%
   mutate(Z = BETA / SE) %>%
   select(SNP, CHR, BP, A1, A2, N, Z, BETA, SE, P, A1_AF)
 
+# Store stats BEFORE removing
+male_pd_n <- unique(pd_m_formatted$N)[1]
+male_pd_snps <- nrow(pd_m_formatted)
+
 rm(pd_m)
 gc()
 
@@ -211,10 +219,6 @@ fwrite(pd_m_formatted,
        sep = "\t")
 cat("  ✓ Saved:", file.path(output_dir, "males", "formatted_pd_male.tsv"), "\n")
 report_memory("After saving")
-
-# Store male PD stats
-male_pd_n <- unique(pd_m_formatted$N)[1]
-male_pd_snps <- nrow(pd_m_formatted)
 
 rm(pd_m_formatted)
 gc()
@@ -246,6 +250,10 @@ egfr_m_formatted <- egfr_m %>%
   select(SNP, CHR, BP, A1, A2, N, Z, BETA, SE, P, MAF) %>%
   filter(!is.na(SNP), !is.na(CHR), !is.na(BP))
 
+# Store stats BEFORE removing
+male_egfr_n <- unique(egfr_m_formatted$N)[1]
+male_egfr_snps <- nrow(egfr_m_formatted)
+
 rm(egfr_m)
 gc()
 
@@ -254,10 +262,6 @@ fwrite(egfr_m_formatted,
        sep = "\t")
 cat("  ✓ Saved:", file.path(output_dir, "males", "formatted_egfr_male.tsv"), "\n")
 report_memory("After saving")
-
-# Store male eGFR stats
-male_egfr_n <- unique(egfr_m_formatted$N)[1]
-male_egfr_snps <- nrow(egfr_m_formatted)
 
 rm(egfr_m_formatted)
 gc()
@@ -279,6 +283,10 @@ uacr_m_formatted <- uacr_m %>%
   mutate(Z = BETA / SE) %>%
   select(SNP, CHR, BP, A1, A2, N, Z, BETA, SE, P, MAF)
 
+# Store stats BEFORE removing
+male_uacr_n <- unique(uacr_m_formatted$N)[1]
+male_uacr_snps <- nrow(uacr_m_formatted)
+
 rm(uacr_m)
 gc()
 
@@ -287,10 +295,6 @@ fwrite(uacr_m_formatted,
        sep = "\t")
 cat("  ✓ Saved:", file.path(output_dir, "males", "formatted_uacr_male.tsv"), "\n")
 report_memory("After saving")
-
-# Store male uACR stats
-male_uacr_n <- unique(uacr_m_formatted$N)[1]
-male_uacr_snps <- nrow(uacr_m_formatted)
 
 rm(uacr_m_formatted)
 gc()
@@ -318,7 +322,7 @@ hematuria_m_formatted <- hematuria_m %>%
   ) %>%
   select(SNP, CHR, BP, A1, A2, N, Z, BETA, SE, P, MAF)
 
-# Store male hematuria stats BEFORE clearing
+# Store stats BEFORE removing
 male_hematuria_n <- unique(hematuria_m_formatted$N)[1]
 male_hematuria_snps <- nrow(hematuria_m_formatted)
 
@@ -343,10 +347,10 @@ cat("SUMMARY\n")
 cat("========================================\n\n")
 
 cat("FEMALES:\n")
-cat("  PD:        N =", female_summary$pd_n, ", SNPs =", female_summary$pd_snps, "\n")
-cat("  eGFR:      N =", female_summary$egfr_n, ", SNPs =", female_summary$egfr_snps, "\n")
-cat("  uACR:      N =", female_summary$uacr_n, ", SNPs =", female_summary$uacr_snps, "\n")
-cat("  Hematuria: N =", female_summary$hematuria_n, ", SNPs =", female_summary$hematuria_snps, "\n\n")
+cat("  PD:        N =", female_pd_n, ", SNPs =", female_pd_snps, "\n")
+cat("  eGFR:      N =", female_egfr_n, ", SNPs =", female_egfr_snps, "\n")
+cat("  uACR:      N =", female_uacr_n, ", SNPs =", female_uacr_snps, "\n")
+cat("  Hematuria: N =", female_hematuria_n, ", SNPs =", female_hematuria_snps, "\n\n")
 
 cat("MALES:\n")
 cat("  PD:        N =", male_pd_n, ", SNPs =", male_pd_snps, "\n")

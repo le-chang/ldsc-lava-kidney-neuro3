@@ -3,7 +3,7 @@
 #SBATCH --account=def-gsarah
 #SBATCH --time=48:00:00
 #SBATCH --cpus-per-task=4
-#SBATCH --mem=32G
+#SBATCH --mem=64G
 #SBATCH --output=lava_sex_specific_%j.out
 #SBATCH --error=lava_sex_specific_%j.err
 
@@ -25,6 +25,7 @@ echo "========================================="
 echo "Sex-Specific LAVA Analysis"
 echo "========================================="
 echo "Start time: $(date)"
+echo "Memory allocated: 64GB"
 echo ""
 
 # Step 1: Prepare summary statistics

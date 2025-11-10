@@ -28,8 +28,5 @@ echo "Start time: $(date)"
 echo "Memory allocated: 64GB"
 echo ""
 
-Rscript /home/lchang24/projects/def-gsarah/lchang24/github/ldsc-lava-kidney-neuro3/lava-analysis/scripts4/lava_diagnostic.R
+Rscript /home/lchang24/projects/def-gsarah/lchang24/github/ldsc-lava-kidney-neuro3/lava-analysis/scripts4/extract_sex_specific_lava_results.R
 
-Rscript /home/lchang24/projects/def-gsarah/lchang24/github/ldsc-lava-kidney-neuro3/lava-analysis/scripts4/extract_lava_sex_specific_results.R
-
-Rscript /home/lchang24/projects/def-gsarah/lchang24/github/ldsc-lava-kidney-neuro3/lava-analysis/scripts4/visualize_sex_specific_results.R

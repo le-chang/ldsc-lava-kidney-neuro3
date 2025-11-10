@@ -9,7 +9,7 @@ pheno_pairs <- c("egfr_pd", "hematuria_pd", "uacr_pd")
 sexes <- c("females", "males")
 
 cat("LAVA OUTPUT FILE DIAGNOSTIC\n")
-cat("="*70, "\n\n")
+cat(paste(rep("=", 70), collapse = ""), "\n\n")
 
 for (sex in sexes) {
   for (pair in pheno_pairs) {

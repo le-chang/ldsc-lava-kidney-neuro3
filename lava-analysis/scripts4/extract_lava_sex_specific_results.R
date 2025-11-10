@@ -2,7 +2,6 @@
 
 # LAVA Sex-Specific Results Analysis
 # Following Nature Genetics 2022 methodology
-# WITH ERROR HANDLING FOR EMPTY FILES
 
 library(tidyverse)
 library(data.table)
@@ -23,7 +22,7 @@ pheno_pairs <- c("egfr_pd", "hematuria_pd", "uacr_pd")
 sexes <- c("females", "males")
 
 # ============================================================================
-# FUNCTION: Load and Process Results (WITH ERROR HANDLING)
+# FUNCTION: Load and Process Results
 # ============================================================================
 
 load_lava_results <- function(sex, pheno_pair, base_dir) {
@@ -109,11 +108,12 @@ load_lava_results <- function(sex, pheno_pair, base_dir) {
 # ============================================================================
 
 cat("Loading LAVA results...\n")
-cat("="*70, "\n")
+cat(paste(rep("=", 70), collapse = ""), "\n")
 
 all_bivar <- list()
 all_univ <- list()
-failed_loads <- data.frame(sex = character(), pheno_pair = character(), reason = character())
+failed_loads <- data.frame(sex = character(), pheno_pair = character(), 
+                          reason = character(), stringsAsFactors = FALSE)
 
 for (sex in sexes) {
   for (pair in pheno_pairs) {
@@ -130,7 +130,8 @@ for (sex in sexes) {
       cat("FAILED\n")
       failed_loads <- rbind(failed_loads, 
                            data.frame(sex = sex, pheno_pair = pair, 
-                                    reason = "Empty or unreadable file"))
+                                    reason = "Empty or unreadable file",
+                                    stringsAsFactors = FALSE))
     }
   }
 }
@@ -163,12 +164,11 @@ if (nrow(failed_loads) > 0) {
 
 # ============================================================================
 # STEP 2: Calculate Significance Thresholds
-# Following Nature Genetics LAVA paper methodology
 # ============================================================================
 
-cat("="*70, "\n")
+cat(paste(rep("=", 70), collapse = ""), "\n")
 cat("CALCULATING SIGNIFICANCE THRESHOLDS\n")
-cat("="*70, "\n\n")
+cat(paste(rep("=", 70), collapse = ""), "\n\n")
 
 # Get number of unique loci tested
 total_loci <- length(unique(univ_combined$locus))
@@ -179,7 +179,7 @@ univ_threshold <- 0.05 / total_loci
 cat(paste("Univariate filtering threshold: P <", format(univ_threshold, scientific = TRUE), "\n"))
 cat(paste("  (0.05 /", total_loci, "loci )\n\n"))
 
-# Count loci passing univariate filter for each phenotype, sex, and pair
+# Count loci passing univariate filter
 univ_sig <- univ_combined %>%
   filter(p < univ_threshold) %>%
   group_by(sex, pheno_pair, phen) %>%
@@ -194,7 +194,7 @@ loci_both_sig <- univ_combined %>%
   filter(p < univ_threshold) %>%
   group_by(sex, pheno_pair, locus) %>%
   summarise(n_phenos_sig = n(), .groups = "drop") %>%
-  filter(n_phenos_sig == 2)  # Both phenotypes significant
+  filter(n_phenos_sig == 2)
 
 bivar_tests_performed <- loci_both_sig %>%
   group_by(sex, pheno_pair) %>%
@@ -226,9 +226,9 @@ cat(paste("  (0.05 /", total_bivar_tests, "bivariate tests )\n\n"))
 # STEP 3: Apply Thresholds and Identify Significant Results
 # ============================================================================
 
-cat("="*70, "\n")
+cat(paste(rep("=", 70), collapse = ""), "\n")
 cat("FILTERING FOR SIGNIFICANT RESULTS\n")
-cat("="*70, "\n\n")
+cat(paste(rep("=", 70), collapse = ""), "\n\n")
 
 # Univariate significant results
 univ_sig_results <- univ_combined %>%
@@ -270,16 +270,15 @@ if (nrow(bivar_sig_results) == 0) {
 }
 
 # ============================================================================
-# STEP 4: Detailed Summary Statistics (if significant results exist)
+# STEP 4: Detailed Summary Statistics
 # ============================================================================
 
 if (nrow(bivar_sig_results) > 0) {
   
-  cat("="*70, "\n")
+  cat(paste(rep("=", 70), collapse = ""), "\n")
   cat("DETAILED SUMMARY BY SEX AND PHENOTYPE PAIR\n")
-  cat("="*70, "\n\n")
+  cat(paste(rep("=", 70), collapse = ""), "\n\n")
   
-  # Summary by sex and phenotype pair
   summary_by_group <- bivar_sig_results %>%
     group_by(sex, pheno_pair, phen1, phen2) %>%
     summarise(
@@ -300,15 +299,11 @@ if (nrow(bivar_sig_results) > 0) {
   
   print(as.data.frame(summary_by_group))
   
-  # ============================================================================
-  # STEP 5: Sex Comparison
-  # ============================================================================
-  
-  cat("\n", "="*70, "\n")
+  # Sex Comparison
+  cat("\n", paste(rep("=", 70), collapse = ""), "\n")
   cat("SEX-SPECIFIC COMPARISON\n")
-  cat("="*70, "\n\n")
+  cat(paste(rep("=", 70), collapse = ""), "\n\n")
   
-  # Compare number of significant loci between sexes
   sex_comparison <- summary_by_group %>%
     select(sex, pheno_pair, n_sig_loci, mean_rho) %>%
     pivot_wider(
@@ -352,13 +347,10 @@ if (nrow(bivar_sig_results) > 0) {
   cat("\nSex-specificity of significant loci:\n")
   print(as.data.frame(sex_specificity_summary))
   
-  # ============================================================================
-  # STEP 6: Effect Size Analysis
-  # ============================================================================
-  
-  cat("\n", "="*70, "\n")
+  # Effect Size Analysis
+  cat("\n", paste(rep("=", 70), collapse = ""), "\n")
   cat("EFFECT SIZE ANALYSIS\n")
-  cat("="*70, "\n\n")
+  cat(paste(rep("=", 70), collapse = ""), "\n\n")
   
   effect_size_stats <- bivar_sig_results %>%
     group_by(sex, pheno_pair) %>%
@@ -384,14 +376,29 @@ if (nrow(bivar_sig_results) > 0) {
 }
 
 # ============================================================================
-# STEP 7: Save Results
+# STEP 5: Save Results
 # ============================================================================
 
-cat("\n", "="*70, "\n")
+cat("\n", paste(rep("=", 70), collapse = ""), "\n")
 cat("SAVING RESULTS\n")
-cat("="*70, "\n\n")
+cat(paste(rep("=", 70), collapse = ""), "\n\n")
 
-# Save all significant results (if any)
+# Save all results
+fwrite(bivar_combined,
+       file.path(output_dir, "all_bivar_results.tsv"),
+       sep = "\t")
+cat("Saved: all_bivar_results.tsv\n")
+
+fwrite(univ_combined,
+       file.path(output_dir, "all_univ_results.tsv"),
+       sep = "\t")
+cat("Saved: all_univ_results.tsv\n")
+
+fwrite(univ_sig_results,
+       file.path(output_dir, "univ_significant_results.tsv"),
+       sep = "\t")
+cat("Saved: univ_significant_results.tsv\n")
+
 if (nrow(bivar_sig_results) > 0) {
   fwrite(bivar_sig_results, 
          file.path(output_dir, "bivar_significant_results.tsv"),
@@ -403,16 +410,12 @@ if (nrow(bivar_sig_results) > 0) {
            file.path(output_dir, "summary_by_sex_and_pair.tsv"),
            sep = "\t")
     cat("Saved: summary_by_sex_and_pair.tsv\n")
-  }
-  
-  if (!is.null(sex_comparison)) {
+    
     fwrite(sex_comparison,
            file.path(output_dir, "sex_comparison_summary.tsv"),
            sep = "\t")
     cat("Saved: sex_comparison_summary.tsv\n")
-  }
-  
-  if (!is.null(sex_specific_loci)) {
+    
     fwrite(sex_specific_loci,
            file.path(output_dir, "sex_specific_loci.tsv"),
            sep = "\t")
@@ -422,21 +425,13 @@ if (nrow(bivar_sig_results) > 0) {
            file.path(output_dir, "sex_specificity_summary.tsv"),
            sep = "\t")
     cat("Saved: sex_specificity_summary.tsv\n")
-  }
-  
-  if (!is.null(effect_size_stats)) {
+    
     fwrite(effect_size_stats,
            file.path(output_dir, "effect_size_statistics.tsv"),
            sep = "\t")
     cat("Saved: effect_size_statistics.tsv\n")
   }
 }
-
-# Always save univariate results and thresholds
-fwrite(univ_sig_results,
-       file.path(output_dir, "univ_significant_results.tsv"),
-       sep = "\t")
-cat("Saved: univ_significant_results.tsv\n")
 
 # Save threshold information
 threshold_info <- data.frame(
@@ -451,7 +446,8 @@ threshold_info <- data.frame(
             total_bivar_tests,
             format(bivar_threshold, scientific = TRUE),
             nrow(univ_sig_results),
-            nrow(bivar_sig_results))
+            nrow(bivar_sig_results)),
+  stringsAsFactors = FALSE
 )
 
 fwrite(threshold_info,
@@ -459,28 +455,17 @@ fwrite(threshold_info,
        sep = "\t")
 cat("Saved: significance_thresholds.tsv\n")
 
-# Save complete datasets for further analysis
-fwrite(bivar_combined,
-       file.path(output_dir, "all_bivar_results.tsv"),
-       sep = "\t")
-cat("Saved: all_bivar_results.tsv (all tests, not just significant)\n")
-
-fwrite(univ_combined,
-       file.path(output_dir, "all_univ_results.tsv"),
-       sep = "\t")
-cat("Saved: all_univ_results.tsv (all tests, not just significant)\n")
-
 # ============================================================================
-# STEP 8: Generate Manuscript-Ready Summary
+# STEP 6: Generate Manuscript Summary
 # ============================================================================
 
-cat("\n", "="*70, "\n")
+cat("\n", paste(rep("=", 70), collapse = ""), "\n")
 cat("GENERATING MANUSCRIPT SUMMARY\n")
-cat("="*70, "\n\n")
+cat(paste(rep("=", 70), collapse = ""), "\n\n")
 
 manuscript_summary <- paste0(
   "LAVA SEX-SPECIFIC ANALYSIS RESULTS SUMMARY\n",
-  "="*70, "\n\n",
+  paste(rep("=", 70), collapse = ""), "\n\n",
   "Following the methodology of Werme et al. (Nature Genetics 2022),\n",
   "we performed sex-stratified local genetic correlation analysis.\n\n",
   "DATA LOADING:\n",
@@ -500,7 +485,7 @@ manuscript_summary <- paste0(
   "- Bivariate significant local correlations: ", nrow(bivar_sig_results), "\n\n"
 )
 
-if (nrow(bivar_sig_results) > 0) {
+if (nrow(bivar_sig_results) > 0 && !is.null(summary_by_group)) {
   manuscript_summary <- paste0(manuscript_summary, "BY SEX:\n")
   for (sex_name in sexes) {
     n_sig <- sum(bivar_sig_results$sex == sex_name)
@@ -550,12 +535,6 @@ if (nrow(bivar_sig_results) > 0) {
       }
     }
   }
-} else {
-  manuscript_summary <- paste0(
-    manuscript_summary,
-    "\nNOTE: No bivariate correlations passed the Bonferroni-corrected threshold.\n",
-    "See bivar_nominal_results.tsv for nominally significant results (P < 0.05).\n"
-  )
 }
 
 cat(manuscript_summary)
@@ -564,7 +543,7 @@ writeLines(manuscript_summary,
            file.path(output_dir, "manuscript_summary.txt"))
 cat("\nSaved: manuscript_summary.txt\n")
 
-cat("\n", "="*70, "\n")
+cat("\n", paste(rep("=", 70), collapse = ""), "\n")
 cat("ANALYSIS COMPLETE!\n")
 cat("All results saved to:", output_dir, "\n")
-cat("="*70, "\n")
+cat(paste(rep("=", 70), collapse = ""), "\n")

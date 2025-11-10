@@ -1,11 +1,11 @@
 #!/usr/bin/env Rscript
 
 # LAVA Sex-Specific Results Visualization
+# WITHOUT PATCHWORK DEPENDENCY
 
 library(tidyverse)
 library(data.table)
 library(ggplot2)
-library(patchwork)
 library(viridis)
 
 # Load significant results
@@ -13,8 +13,46 @@ output_dir <- "/home/lchang24/projects/def-gsarah/lchang24/github/ldsc-lava-kidn
 plot_dir <- file.path(output_dir, "plots")
 dir.create(plot_dir, showWarnings = FALSE)
 
-bivar_sig <- fread(file.path(output_dir, "bivar_significant_results.tsv"))
-summary_data <- fread(file.path(output_dir, "summary_by_sex_and_pair.tsv"))
+# Check if significant results exist
+bivar_sig_file <- file.path(output_dir, "bivar_significant_results.tsv")
+if (!file.exists(bivar_sig_file)) {
+  stop("ERROR: No significant results file found. Run the analysis script first.")
+}
+
+bivar_sig <- fread(bivar_sig_file)
+
+if (nrow(bivar_sig) == 0) {
+  cat("WARNING: No significant results to plot.\n")
+  cat("Try plotting nominal results instead.\n")
+  
+  # Try to load nominal results
+  bivar_nominal_file <- file.path(output_dir, "bivar_nominal_results.tsv")
+  if (file.exists(bivar_nominal_file)) {
+    bivar_sig <- fread(bivar_nominal_file)
+    cat("Using nominally significant results (P < 0.05) for visualization.\n")
+  } else {
+    stop("No results available for plotting.")
+  }
+}
+
+# Load summary data
+summary_file <- file.path(output_dir, "summary_by_sex_and_pair.tsv")
+if (file.exists(summary_file)) {
+  summary_data <- fread(summary_file)
+} else {
+  # Create summary from bivar_sig if file doesn't exist
+  summary_data <- bivar_sig %>%
+    group_by(sex, pheno_pair, phen1, phen2) %>%
+    summarise(
+      n_sig_loci = n(),
+      n_positive_rg = sum(rho > 0, na.rm = TRUE),
+      n_negative_rg = sum(rho < 0, na.rm = TRUE),
+      mean_rho = mean(rho, na.rm = TRUE),
+      .groups = "drop"
+    )
+}
+
+cat(paste("Generating plots for", nrow(bivar_sig), "significant correlations...\n"))
 
 # ============================================================================
 # PLOT 1: Number of Significant Loci by Sex and Phenotype Pair
@@ -28,7 +66,7 @@ p1 <- ggplot(summary_data, aes(x = pheno_pair, y = n_sig_loci, fill = sex)) +
   scale_fill_manual(values = c("females" = "#E69F00", "males" = "#56B4E9"),
                     labels = c("Females", "Males")) +
   labs(title = "Significant Local Genetic Correlations by Sex",
-       subtitle = paste("Bonferroni-corrected threshold applied"),
+       subtitle = "Bonferroni-corrected threshold applied",
        x = "Phenotype Pair",
        y = "Number of Significant Loci",
        fill = "Sex") +
@@ -39,6 +77,7 @@ p1 <- ggplot(summary_data, aes(x = pheno_pair, y = n_sig_loci, fill = sex)) +
 
 ggsave(file.path(plot_dir, "fig1_nsig_by_sex.pdf"), p1, width = 8, height = 6)
 ggsave(file.path(plot_dir, "fig1_nsig_by_sex.png"), p1, width = 8, height = 6, dpi = 300)
+cat("Saved: fig1_nsig_by_sex.pdf/png\n")
 
 # ============================================================================
 # PLOT 2: Distribution of Genetic Correlations (rho)
@@ -61,6 +100,7 @@ p2 <- ggplot(bivar_sig, aes(x = rho, fill = sex)) +
 
 ggsave(file.path(plot_dir, "fig2_rho_distribution.pdf"), p2, width = 10, height = 8)
 ggsave(file.path(plot_dir, "fig2_rho_distribution.png"), p2, width = 10, height = 8, dpi = 300)
+cat("Saved: fig2_rho_distribution.pdf/png\n")
 
 # ============================================================================
 # PLOT 3: Effect Size Comparison (Violin Plot)
@@ -84,9 +124,10 @@ p3 <- ggplot(bivar_sig, aes(x = pheno_pair, y = rho, fill = sex)) +
 
 ggsave(file.path(plot_dir, "fig3_rho_violin.pdf"), p3, width = 10, height = 6)
 ggsave(file.path(plot_dir, "fig3_rho_violin.png"), p3, width = 10, height = 6, dpi = 300)
+cat("Saved: fig3_rho_violin.pdf/png\n")
 
 # ============================================================================
-# PLOT 4: P-value Distribution (Manhattan-style)
+# PLOT 4: P-value Distribution
 # ============================================================================
 
 bivar_sig_plot <- bivar_sig %>%
@@ -115,6 +156,7 @@ p4 <- ggplot(bivar_sig_plot, aes(x = index, y = neglog10p, color = as.factor(chr
 
 ggsave(file.path(plot_dir, "fig4_pvalue_manhattan.pdf"), p4, width = 14, height = 8)
 ggsave(file.path(plot_dir, "fig4_pvalue_manhattan.png"), p4, width = 14, height = 8, dpi = 300)
+cat("Saved: fig4_pvalue_manhattan.pdf/png\n")
 
 # ============================================================================
 # PLOT 5: Proportion of Positive vs Negative Correlations
@@ -144,40 +186,41 @@ p5 <- ggplot(direction_data, aes(x = pheno_pair, y = count, fill = direction)) +
 
 ggsave(file.path(plot_dir, "fig5_direction_barplot.pdf"), p5, width = 10, height = 6)
 ggsave(file.path(plot_dir, "fig5_direction_barplot.png"), p5, width = 10, height = 6, dpi = 300)
+cat("Saved: fig5_direction_barplot.pdf/png\n")
 
 # ============================================================================
 # PLOT 6: Sex Comparison Scatter Plot
 # ============================================================================
 
 # Reshape data for comparison
-if (nrow(bivar_sig) > 0) {
-  comparison_data <- bivar_sig %>%
-    select(locus, pheno_pair, sex, rho, p) %>%
-    pivot_wider(
-      names_from = sex,
-      values_from = c(rho, p),
-      names_sep = "_"
-    ) %>%
-    filter(!is.na(rho_females) & !is.na(rho_males))
+comparison_data <- bivar_sig %>%
+  select(locus, pheno_pair, sex, rho, p) %>%
+  pivot_wider(
+    names_from = sex,
+    values_from = c(rho, p),
+    names_sep = "_"
+  ) %>%
+  filter(!is.na(rho_females) & !is.na(rho_males))
+
+if (nrow(comparison_data) > 0) {
+  p6 <- ggplot(comparison_data, aes(x = rho_females, y = rho_males)) +
+    geom_point(aes(color = pheno_pair), alpha = 0.7, size = 3) +
+    geom_abline(intercept = 0, slope = 1, linetype = "dashed", color = "red") +
+    geom_hline(yintercept = 0, linetype = "dotted", alpha = 0.5) +
+    geom_vline(xintercept = 0, linetype = "dotted", alpha = 0.5) +
+    labs(title = "Sex Comparison of Local Genetic Correlations",
+         subtitle = "Loci significant in both sexes",
+         x = "ρ (Females)",
+         y = "ρ (Males)",
+         color = "Phenotype Pair") +
+    theme_bw() +
+    theme(legend.position = "bottom",
+          plot.title = element_text(face = "bold", size = 14))
   
-  if (nrow(comparison_data) > 0) {
-    p6 <- ggplot(comparison_data, aes(x = rho_females, y = rho_males)) +
-      geom_point(aes(color = pheno_pair), alpha = 0.7, size = 3) +
-      geom_abline(intercept = 0, slope = 1, linetype = "dashed", color = "red") +
-      geom_hline(yintercept = 0, linetype = "dotted", alpha = 0.5) +
-      geom_vline(xintercept = 0, linetype = "dotted", alpha = 0.5) +
-      labs(title = "Sex Comparison of Local Genetic Correlations",
-           subtitle = "Loci significant in both sexes",
-           x = "ρ (Females)",
-           y = "ρ (Males)",
-           color = "Phenotype Pair") +
-      theme_bw() +
-      theme(legend.position = "bottom",
-            plot.title = element_text(face = "bold", size = 14))
-    
-    ggsave(file.path(plot_dir, "fig6_sex_comparison.pdf"), p6, width = 8, height = 8)
-    ggsave(file.path(plot_dir, "fig6_sex_comparison.png"), p6, width = 8, height = 8, dpi = 300)
-  }
+  ggsave(file.path(plot_dir, "fig6_sex_comparison.pdf"), p6, width = 8, height = 8)
+  ggsave(file.path(plot_dir, "fig6_sex_comparison.png"), p6, width = 8, height = 8, dpi = 300)
+  cat("Saved: fig6_sex_comparison.pdf/png\n")
 }
 
 cat("\nAll plots saved to:", plot_dir, "\n")
+cat("Plot generation complete!\n")
